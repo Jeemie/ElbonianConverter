@@ -12,6 +12,7 @@ public class ElbonianArabicConverter {
 
 
     private String value;
+    private Legality legal;
 
     /**
      * Constructor that takes in a string. The string should contain either a
@@ -30,8 +31,8 @@ public class ElbonianArabicConverter {
      */
     public ElbonianArabicConverter(String value) throws MalformedNumberException {
 
-    this.value = value;
-
+        this.value = value;
+        legal = new Legality();
     }
 
 
@@ -49,10 +50,23 @@ public class ElbonianArabicConverter {
      *
      * @return The integer value of the number
      */
-    public int toArabic() {
+    public int toArabic() throws MalformedNumberException {
 
-        int sum = 0;
 
+        /**
+         * Makes sure it's a valid Elbonian String
+         */
+        if(!legal.eLegal(this.value)){
+            throw new MalformedNumberException("This is not a valid Elbonian string");
+        }
+
+
+        int sum = 0;//Isn't this obvious?
+
+
+        /**
+         * Adds the values depending on what the letters are.
+         */
         for (int i = 0; i < value.length(); i++) {
             if (Character.toString(value.charAt(i)).equals("M")) {
                 sum += 1000;
@@ -101,10 +115,7 @@ public class ElbonianArabicConverter {
             }
         }
 
-/*        if(value == "M"){
-            return 1000;
-        }*/
-        return sum;
+        return sum; //What do you think?
 
     }
 
@@ -115,18 +126,28 @@ public class ElbonianArabicConverter {
      * @throws ValueOutOfBoundsException if the number is too small or too large
      *                                   to be represented using Roman numerals
      */
-    public String toElbonian(String value) throws ValueOutOfBoundsException {
+    public String toElbonian() throws ValueOutOfBoundsException {
 
         if (Integer.parseInt(value) > 3888) {
             throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
                     "They are a simple people with few resources.");
         }
 
-        int remainder = Integer.parseInt(value);
+        if (Integer.parseInt(value) < 1) {
+            throw new ValueOutOfBoundsException("This number is too small to be comprehended by the Elbonians. \n" +
+                    "They are a simple people with few resources.");
+        }
 
-        String Elbonian ="";
+        if(!legal.eLegal(this.value)){
+            throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
+                    "They are a simple people with few resources.");
+        }
 
-        while (remainder >0) {
+       // int remainder = Integer.parseInt(value);
+
+       // String Elbonian ="";
+
+       /* while (remainder >0) {
             if (remainder >1000) {
                 remainder -= 1000;
                 Elbonian += "M";
@@ -177,7 +198,7 @@ public class ElbonianArabicConverter {
                 Elbonian += "M";
             }
 
-        }
+        }*/
 
         return "I";
 
