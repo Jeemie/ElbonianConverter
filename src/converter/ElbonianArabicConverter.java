@@ -45,6 +45,7 @@ public class ElbonianArabicConverter {
         System.out.println(ET1I);
 
     }*/
+
     /**
      * Returns the value of this object as an Arabic number.
      *
@@ -56,7 +57,7 @@ public class ElbonianArabicConverter {
         /**
          * Makes sure it's a valid Elbonian String
          */
-        if(!legal.eLegal(this.value)){
+        if (!legal.eLegal(this.value)) {
             throw new MalformedNumberException("This is not a valid Elbonian string");
         }
 
@@ -138,69 +139,87 @@ public class ElbonianArabicConverter {
                     "They are a simple people with few resources.");
         }
 
-        if(!legal.eLegal(this.value)){
+        if (!legal.eLegal(this.value)) {
             throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
                     "They are a simple people with few resources.");
         }
 
-       // int remainder = Integer.parseInt(value);
+        int remainder = Integer.parseInt(value);
 
-       // String Elbonian ="";
+        String Elbonian = "";
 
-       /* while (remainder >0) {
-            if (remainder >1000) {
-                remainder -= 1000;
-                Elbonian += "M";
-            }
-            if (remainder >1000) {
-                remainder -= 1000;
-                Elbonian += "M";
-            }
 
-            if (remainder >1000) {
+        while (remainder > 0) {
+            if (remainder >= 1000) {
                 remainder -= 1000;
-                Elbonian += "M";
+                Elbonian = Elbonian + "M";
+                continue;
             }
-            if (remainder >900) {
+            if (remainder >= 900) {
                 remainder -= 900;
-                Elbonian += "mM";
+                Elbonian = Elbonian + "mM";
+                continue;
             }
-            if (remainder >500) {
+            if (remainder >= 500) {
                 remainder -= 500;
-                Elbonian += "D";
+                Elbonian = Elbonian + "D";
+                continue;
             }
-            if (remainder >400) {
+            if (remainder >= 400) {
                 remainder -= 400;
-                Elbonian += "dD";
+                Elbonian = Elbonian + "dD";
+                continue;
             }
-            if (remainder >100) {
+            if (remainder >= 100) {
                 remainder -= 100;
-                Elbonian += "C";
+                Elbonian = Elbonian + "C";
+                continue;
             }
-            if (remainder >100) {
-                remainder -= 100;
-                Elbonian += "C";
+            if (remainder >= 90) {
+                remainder -= 90;
+                Elbonian = Elbonian + "cC";
+                continue;
             }
-            if (remainder >100) {
-                remainder -= 100;
-                Elbonian += "C";
+            if (remainder >= 50) {
+                remainder -= 50;
+                Elbonian = Elbonian + "L";
+                continue;
             }
-            if (remainder >1000) {
-                remainder -= 1000;
-                Elbonian += "M";
+            if (remainder >= 40) {
+                remainder -= 40;
+                Elbonian = Elbonian + "lL";
+                continue;
             }
-            if (remainder >1000) {
-                remainder -= 1000;
-                Elbonian += "M";
+            if (remainder >= 10) {
+                remainder -= 10;
+                Elbonian = Elbonian + "X";
+                continue;
             }
-            if (remainder >1000) {
-                remainder -= 1000;
-                Elbonian += "M";
+            if (remainder >= 9) {
+                remainder -= 9;
+                Elbonian = Elbonian + "xX";
+                continue;
+            }
+            if (remainder >= 5) {
+                remainder -= 5;
+                Elbonian = Elbonian + "V";
+                continue;
+            }
+            if (remainder >= 4) {
+                remainder -= 4;
+                Elbonian = Elbonian + "vV";
+                continue;
+            }
+            if (remainder >= 1) {
+                remainder -= 1;
+                Elbonian = Elbonian + "I";
+                continue;
             }
 
-        }*/
 
-        return "I";
+        }
+
+        return Elbonian;
 
     }
 }

@@ -56,7 +56,7 @@ public class Legality {
              * This whole bunch is checking to make sure the letters are legitimate Elbonian Numbers
              *
              */
-            if (Character.toString(astring.charAt(i)).equals("M") && Mflag < 4) {//Makes sure there isn't 4 "M" in a row.
+            if (Character.toString(astring.charAt(i)).equals("M") && Mflag < 3) {//Makes sure there isn't 4 "M" in a row.
 
                 //System.out.println("I reached M"); //Debug
 
@@ -82,8 +82,11 @@ public class Legality {
             //Same as M. Look at that . Geez. I don't have time to write all these comments.
             if (Character.toString(astring.charAt(i)).equals("D") && Dflag < 1) {
 
+                if (dflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                    return false;
+                }
                 Dflag += 1;
-                System.out.println("I reached D");
+                //System.out.println("I reached D");
 
 
                 /**
@@ -110,8 +113,11 @@ public class Legality {
 
                 continue;
             }
-            if (Character.toString(astring.charAt(i)).equals("C") && Cflag < 4) {
+            if (Character.toString(astring.charAt(i)).equals("C") && Cflag < 3) {
 
+                if (cflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                    return false;
+                }
                 Cflag += 1;
                 //System.out.println("I reached C"); debug
 
@@ -140,6 +146,9 @@ public class Legality {
             }
             if (Character.toString(astring.charAt(i)).equals("L") && Lflag < 1) {
 
+                if (lflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                    return false;
+                }
                 Lflag += 1;
                 // System.out.println("I reached L"); debug
 
@@ -171,8 +180,11 @@ public class Legality {
 
                 continue;
             }
-            if (Character.toString(astring.charAt(i)).equals("X") && Xflag < 4) {
+            if (Character.toString(astring.charAt(i)).equals("X") && Xflag < 3) {
 
+                if (xflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                    return false;
+                }
                 Xflag += 1;
                 // System.out.println("I reached X"); debug
 
@@ -210,6 +222,9 @@ public class Legality {
             }
             if (Character.toString(astring.charAt(i)).equals("V") && Vflag < 1) {
 
+                if (vflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                    return false;
+                }
                 Vflag += 1;
                 //    System.out.println("I reached V"); debug
 
@@ -250,7 +265,7 @@ public class Legality {
 
                 continue;
             }
-            if (Character.toString(astring.charAt(i)).equals("I") && Iflag < 4) {
+            if (Character.toString(astring.charAt(i)).equals("I") && Iflag < 3) {
 
                 Iflag += 1;
                 //System.out.println("I reached I"); debug
@@ -343,9 +358,24 @@ public class Legality {
                     return false;
                 }
 
+                if(mflag == 1){
+                    return false;
+                }
+
                 dflag += 1;
                 i += 1;
                 // System.out.println("I reached d"); debug
+
+                for (int j = i; j < astring.length(); j++) {
+
+                    /**
+                     * Check BLOCK2
+                     */
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                }
+
                 if (i == astring.length() - 1) {
                     return true;
                 }
@@ -353,6 +383,7 @@ public class Legality {
                 if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
                     return false;
                 }
+
 
                 continue;
 
@@ -369,6 +400,22 @@ public class Legality {
                 cflag += 1;
                 i += 1;
                 // System.out.println("I reached c"); debug
+
+                for (int j = i; j < astring.length(); j++) {
+
+                    /**
+                     * Check BLOCK2
+                     */
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+
+                }
+
                 if (i == astring.length() - 1) {
                     return true;
                 }
@@ -378,7 +425,7 @@ public class Legality {
 
                 continue;
             }
-            if (Character.toString(astring.charAt(i)).equals("l") && Lflag < 1) {
+            if (Character.toString(astring.charAt(i)).equals("l") && lflag < 1) {
 
                 if (i == astring.length() - 1) {
                     return false;
@@ -387,9 +434,32 @@ public class Legality {
                     return false;
                 }
 
+                if(cflag == 1){
+                    return false;
+                }
                 lflag += 1;
                 i += 1;
                 //System.out.println("I reached l");debug
+
+                for (int j = i; j < astring.length(); j++) {
+
+                    /**
+                     * Check BLOCK2
+                     */
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+
+                }
+
                 if (i == astring.length() - 1) {
                     return true;
                 }
@@ -412,6 +482,30 @@ public class Legality {
                 xflag += 1;
                 i += 1;
                 //System.out.println("I reached x");debug
+
+                for (int j = i; j < astring.length(); j++) {
+
+                    /**
+                     * Check BLOCK2
+                     */
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
+
+                }
+
                 if (i == astring.length() - 1) {
                     return true;
                 }
@@ -430,9 +524,41 @@ public class Legality {
                     return false;
                 }
 
+                if(xflag == 1){
+                    return false;
+                }
+
                 vflag += 1;
                 i += 1;
                 // System.out.println("I reached v");debug
+
+                for (int j = i; j < astring.length(); j++) {
+
+                    /**
+                     * Check BLOCK2
+                     */
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("X")) {
+                        return false;
+                    }
+
+                }
+
                 if (i == astring.length() - 1) {
                     return true;
                 }

@@ -25,11 +25,10 @@ public class ElbonianArabicConverterTest {
 
         mainclass = new ElbonianArabicConverter("MM");
         maxclass = new ElbonianArabicConverter("MMMDCCCLXXXVIII");
-        badclass = new ElbonianArabicConverter("MmMm");
         legalcheck = new Legality();
-
+        badclass = new ElbonianArabicConverter("MmMm");
         numClass = new ElbonianArabicConverter("3888");
-        numBadClass = new ElbonianArabicConverter("4000");
+
 
     }
 
@@ -44,6 +43,8 @@ public class ElbonianArabicConverterTest {
      * These test Elbonian methods
      *
      */
+
+
     @Test
     public void toArabic1() throws Exception {
 
@@ -53,42 +54,76 @@ public class ElbonianArabicConverterTest {
     }
 
     @Test
-    public void normal() throws Exception {
+    public void tooManyOfOneLetter() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMMM"), false);
+        Assert.assertEquals(legalcheck.eLegal("CCCC"), false);
+        Assert.assertEquals(legalcheck.eLegal("XXXX"), false);
+        Assert.assertEquals(legalcheck.eLegal("IIII"), false);
+
+    }
+
+    @Test
+    public void threeLetters() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MMM"), true);
+        Assert.assertEquals(legalcheck.eLegal("CCC"), true);
+        Assert.assertEquals(legalcheck.eLegal("XXX"), true);
+        Assert.assertEquals(legalcheck.eLegal("III"), true);
+
 
 
     }
 
     @Test
-    public void normal1() throws Exception {
+    public void avalidOne() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MMMDCLXVI"), true);
 
-
     }
 
     @Test
-    public void normal2() throws Exception {
+    public void anotherValidOne() throws Exception{
 
         Assert.assertEquals(legalcheck.eLegal("MMdDClLXvV"), true);
 
+    }
+
+
+    @Test
+    public void notAValidOne() throws Exception {
+        Assert.assertEquals(legalcheck.eLegal("mMdDcClLxXvVI"), false);
 
     }
+
 
     @Test
     public void consecLower() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("Mmm"), false);
-
+        Assert.assertEquals(legalcheck.eLegal("dd"), false);
+        Assert.assertEquals(legalcheck.eLegal("CccC"), false);
+        Assert.assertEquals(legalcheck.eLegal("ll"), false);
+        Assert.assertEquals(legalcheck.eLegal("Xxx"), false);
+        Assert.assertEquals(legalcheck.eLegal("vv"), false);
 
     }
 
     @Test
-    public void multiLower() throws Exception {
+    public void consecLower2() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMdDccC"), false);
+
+
+    }
+
+
+    @Test
+    public void multiLowerCase() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MmMm"), false);
-
+        Assert.assertEquals(legalcheck.eLegal("cCcC"), false);
+        Assert.assertEquals(legalcheck.eLegal("xXxX"), false);
 
     }
 
@@ -96,6 +131,18 @@ public class ElbonianArabicConverterTest {
     public void singleLetterAllowed() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("DD"), false);
+        Assert.assertEquals(legalcheck.eLegal("VV"), false);
+        Assert.assertEquals(legalcheck.eLegal("LL"), false);
+
+
+
+    }
+
+
+    @Test
+    public void singleLetterAllowed2() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMmMCCcCXXVV"), false);
 
 
     }
@@ -103,7 +150,15 @@ public class ElbonianArabicConverterTest {
     @Test
     public void inOrder() throws Exception {
 
-        Assert.assertEquals(legalcheck.eLegal("MMM"), true);
+        Assert.assertEquals(legalcheck.eLegal("MMMXXV"), true);
+
+
+    }
+
+    @Test
+    public void inOrder2() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MlLvVI"), true);
 
 
     }
@@ -111,7 +166,23 @@ public class ElbonianArabicConverterTest {
     @Test
     public void outOfOrder() throws Exception {
 
-        Assert.assertEquals(legalcheck.eLegal("DDM"), false);
+        Assert.assertEquals(legalcheck.eLegal("DM"), false);
+
+
+    }
+
+    @Test
+    public void outOfOrder2() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMMDVX"), false);
+
+
+    }
+
+    @Test
+    public void outOfOrder3() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMmMDvVX"), false);
 
 
     }
@@ -120,6 +191,7 @@ public class ElbonianArabicConverterTest {
     public void outOfOrderWithLowerCase() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MMDm"), false);
+        Assert.assertEquals(legalcheck.eLegal("lLvVX"), false);
 
 
     }
@@ -128,6 +200,9 @@ public class ElbonianArabicConverterTest {
     public void wrongLetterAfterLower() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MmD"), false);
+        Assert.assertEquals(legalcheck.eLegal("DxV"), false);
+        Assert.assertEquals(legalcheck.eLegal("cL"), false);
+        Assert.assertEquals(legalcheck.eLegal("lX"), false);
 
 
     }
@@ -136,9 +211,17 @@ public class ElbonianArabicConverterTest {
     public void singleLower() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("m"), false);
+        Assert.assertEquals(legalcheck.eLegal("d"), false);
+        Assert.assertEquals(legalcheck.eLegal("c"), false);
+        Assert.assertEquals(legalcheck.eLegal("l"), false);
+        Assert.assertEquals(legalcheck.eLegal("x"), false);
+        Assert.assertEquals(legalcheck.eLegal("v"), false);
+        Assert.assertEquals(legalcheck.eLegal("i"), false);
+
 
 
     }
+
 
     @Test
     public void maxIs3888() throws Exception {
@@ -158,6 +241,15 @@ public class ElbonianArabicConverterTest {
     public void noRepeatCapAfterLower() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MmMM"), false);
+        Assert.assertEquals(legalcheck.eLegal("lLL"), false);
+
+    }
+
+
+    @Test
+    public void noRepeatCapAfterLower2() throws Exception {
+
+        Assert.assertEquals(legalcheck.eLegal("MMMDCCCLxXX"), false);
 
     }
 
@@ -165,6 +257,11 @@ public class ElbonianArabicConverterTest {
     public void whiteSpaces() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal(" M mM "), false);
+        Assert.assertEquals(legalcheck.eLegal(" C cC "), false);
+        Assert.assertEquals(legalcheck.eLegal(" Xx X "), false);
+        Assert.assertEquals(legalcheck.eLegal(" I I I "), false);
+        Assert.assertEquals(legalcheck.eLegal(" D "), true);
+        Assert.assertEquals(legalcheck.eLegal(" vV"), true);
 
     }
 
@@ -173,6 +270,9 @@ public class ElbonianArabicConverterTest {
     public void negativeSignInEldonian() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("-MMM"), false);
+        Assert.assertEquals(legalcheck.eLegal("CC-C"), false);
+        Assert.assertEquals(legalcheck.eLegal("X-XX"), false);
+        Assert.assertEquals(legalcheck.eLegal("III-"), false);
 
     }
 
@@ -180,20 +280,8 @@ public class ElbonianArabicConverterTest {
     public void badLetter() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("MMA"), false);
-
-    }
-
-    @Test
-    public void badLetter2() throws Exception {
-
-        Assert.assertEquals(legalcheck.eLegal("MAM"), false);
-
-    }
-
-    @Test
-    public void badLetter3() throws Exception {
-
-        Assert.assertEquals(legalcheck.eLegal("AMM"), false);
+        Assert.assertEquals(legalcheck.eLegal("ACC"), false);
+        Assert.assertEquals(legalcheck.eLegal("DAX"), false);
 
     }
 
@@ -211,10 +299,44 @@ public class ElbonianArabicConverterTest {
 
     }
 
+    @Test
+    public void elbodianToArabicAndBack() throws Exception {
 
-    /**
+        mainclass = new ElbonianArabicConverter("dDlLvV");
+
+        int answer = mainclass.toArabic();
+
+        String answer2 = Integer.toString(answer);
+
+        ElbonianArabicConverter mainclass2 = new ElbonianArabicConverter(answer2);
+
+        String answer3 = mainclass2.toElbonian();
+
+        Assert.assertEquals(answer3, "dDlLvV");
+
+    }
+
+    @Test
+    public void elbodianFromArabicAndBack() throws Exception {
+
+        mainclass = new ElbonianArabicConverter("444");
+
+        String answer = mainclass.toElbonian();
+
+        ElbonianArabicConverter mainclass2 = new ElbonianArabicConverter(answer);
+
+        int answer2 = mainclass2.toArabic();
+
+        String answer3 = Integer.toString(answer2);
+        Assert.assertEquals(answer3, "444");
+
+    }
+
+/**
      *END TESTELBONIAN
      */
+
+
 
 /**
  * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -224,15 +346,25 @@ public class ElbonianArabicConverterTest {
  * ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
  */
 
-    /**
+
+
+/**
      * START TESTARABIC
      * These test ARABIC methods
      *
      */
 
+
     @Test(expected = ValueOutOfBoundsException.class)
     public void numTooHighExceptionTest() throws Exception {
+        numBadClass = new ElbonianArabicConverter("4000");
+        numBadClass.toElbonian();
 
+    }
+
+    @Test(expected = ValueOutOfBoundsException.class)
+    public void numTooLowExceptionTest() throws Exception {
+        numBadClass = new ElbonianArabicConverter("0");
         numBadClass.toElbonian();
 
     }
@@ -243,31 +375,28 @@ public class ElbonianArabicConverterTest {
     public void onlyNumbers() throws Exception {
 
         Assert.assertEquals(legalcheck.eLegal("123"), true);
-
-    }
-
-    @Test
-    public void norm1() throws Exception {
-
-        Assert.assertEquals(numClass.toElbonian(), "I");
-
-
-
-    }
-
-    @Test
-    public void numAndLetter() throws Exception {
-
-        Assert.assertEquals(legalcheck.eLegal("123m"), false);
-
-    }
-
-    @Test
-    public void negativeSign() throws Exception {
-
+        Assert.assertEquals(legalcheck.eLegal("12A3"), false);
+        Assert.assertEquals(legalcheck.eLegal("12.3"), false);
         Assert.assertEquals(legalcheck.eLegal("-123"), false);
+        Assert.assertEquals(legalcheck.eLegal("123456789"), true);
+        Assert.assertEquals(legalcheck.eLegal("1M23"), false);
+
 
     }
+
+
+    @Test
+    public void valid1() throws Exception {
+
+        Assert.assertEquals(numClass.toElbonian(), "MMMDCCCLXXXVIII");
+        ElbonianArabicConverter aclass = new ElbonianArabicConverter("13");
+        Assert.assertEquals(aclass.toElbonian(), "XIII");
+        ElbonianArabicConverter bclass = new ElbonianArabicConverter("1443");
+        Assert.assertEquals(bclass.toElbonian(), "MdDlLIII");
+
+    }
+
+
 
     /**
      * END TESTARABIC
