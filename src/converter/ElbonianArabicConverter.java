@@ -13,6 +13,19 @@ public class ElbonianArabicConverter {
 
     private String value;
     private Legality legal;
+    int Mflag = 0;
+    int Dflag = 0;
+    int Cflag = 0;
+    int Lflag = 0;
+    int Xflag = 0;
+    int Vflag = 0;
+    int Iflag = 0;
+    int mflag = 0;
+    int dflag = 0;
+    int cflag = 0;
+    int lflag = 0;
+    int xflag = 0;
+    int vflag = 0;
 
     /**
      * Constructor that takes in a string. The string should contain either a
@@ -129,7 +142,7 @@ public class ElbonianArabicConverter {
      */
     public String toElbonian() throws ValueOutOfBoundsException {
 
-        if (Integer.parseInt(value) > 3888) {
+        if (Integer.parseInt(value) > 4887) {
             throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
                     "They are a simple people with few resources.");
         }
@@ -150,62 +163,70 @@ public class ElbonianArabicConverter {
 
 
         while (remainder > 0) {
-            if (remainder >= 1000) {
+            if (remainder >= 1000 && Mflag < 3) {
                 remainder -= 1000;
                 Elbonian = Elbonian + "M";
+                Mflag += 1;
                 continue;
             }
-            if (remainder >= 900) {
+            if (remainder >= 900 && mflag < 1) {
                 remainder -= 900;
                 Elbonian = Elbonian + "mM";
+                mflag += 1;
                 continue;
             }
-            if (remainder >= 500) {
+            if (remainder >= 500 && Dflag < 1) {
                 remainder -= 500;
                 Elbonian = Elbonian + "D";
+                Dflag += 1;
                 continue;
             }
-            if (remainder >= 400) {
+            if (remainder >= 400 && Dflag < 1) {
                 remainder -= 400;
                 Elbonian = Elbonian + "dD";
                 continue;
             }
-            if (remainder >= 100) {
+            if (remainder >= 100 && Cflag < 3) {
                 remainder -= 100;
                 Elbonian = Elbonian + "C";
+                Cflag += 1;
                 continue;
             }
-            if (remainder >= 90) {
+            if (remainder >= 90 && cflag < 1) {
                 remainder -= 90;
                 Elbonian = Elbonian + "cC";
+                cflag += 1;
                 continue;
             }
-            if (remainder >= 50) {
+            if (remainder >= 50 & Lflag < 1) {
                 remainder -= 50;
                 Elbonian = Elbonian + "L";
+                Lflag += 1;
                 continue;
             }
-            if (remainder >= 40) {
+            if (remainder >= 40 & Lflag < 1) {
                 remainder -= 40;
                 Elbonian = Elbonian + "lL";
                 continue;
             }
-            if (remainder >= 10) {
+            if (remainder >= 10 && Xflag < 3) {
                 remainder -= 10;
                 Elbonian = Elbonian + "X";
+                Xflag += 1;
                 continue;
             }
-            if (remainder >= 9) {
+            if (remainder >= 9 && xflag < 1) {
                 remainder -= 9;
                 Elbonian = Elbonian + "xX";
                 continue;
             }
-            if (remainder >= 5) {
+            if (remainder >= 5 && Vflag < 1) {
                 remainder -= 5;
                 Elbonian = Elbonian + "V";
+                Vflag += 1;
                 continue;
             }
-            if (remainder >= 4) {
+            if (remainder >= 4 & Vflag < 1) {
                 remainder -= 4;
                 Elbonian = Elbonian + "vV";
                 continue;
