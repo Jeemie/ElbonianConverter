@@ -1,5 +1,7 @@
 package converter;
 
+import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+
 /**
  * This class implements a converter that takes a string that represents a
  * number in either Elbonian or Arabic numeral form and offers methods that will
@@ -64,7 +66,7 @@ public class ElbonianArabicConverter {
      *
      * @return The integer value of the number
      */
-    public int toArabic() throws MalformedNumberException {
+    public int toArabic() throws MalformedNumberException, ValueOutOfBoundsException {
 
 
         /**
@@ -75,6 +77,26 @@ public class ElbonianArabicConverter {
         }
 
 
+        //It checks if everything in the string is a number.
+        if (value.matches("[0-9]+") && value.length() > 0) {
+
+            int answer = Integer.parseInt(value);
+
+            if (answer > 4887) {
+                throw new ValueOutOfBoundsException("This number is too high to be comprehended by the Elbonians. \n" +
+                        "They are a simple people with few resources.");
+            }
+
+            if (answer < 1) {
+                throw new ValueOutOfBoundsException("This number is too low to be comprehended by the Elbonians. \n" +
+                        "They are a simple people with few resources.");
+            }
+
+
+            return answer;
+
+        }
+
         int sum = 0;//Isn't this obvious?
 
 
@@ -82,56 +104,72 @@ public class ElbonianArabicConverter {
          * Adds the values depending on what the letters are.
          */
         for (int i = 0; i < value.length(); i++) {
-            if (Character.toString(value.charAt(i)).equals("M")) {
-                sum += 1000;
-            }
-            if (Character.toString(value.charAt(i)).equals("D")) {
-                sum += 500;
-            }
-            if (Character.toString(value.charAt(i)).equals("C")) {
-                sum += 100;
-            }
-            if (Character.toString(value.charAt(i)).equals("L")) {
-                sum += 50;
-            }
-            if (Character.toString(value.charAt(i)).equals("X")) {
-                sum += 10;
-            }
-            if (Character.toString(value.charAt(i)).equals("V")) {
-                sum += 5;
-            }
-            if (Character.toString(value.charAt(i)).equals("I")) {
-                sum += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("m")) {
-                sum += 900;
-                i += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("d")) {
-                sum += 400;
-                i += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("c")) {
-                sum += 90;
-                i += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("l")) {
-                sum += 40;
-                i += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("x")) {
-                sum += 9;
-                i += 1;
-            }
-            if (Character.toString(value.charAt(i)).equals("v")) {
-                sum += 4;
-                i += 1;
+            // if (Character.toString(value.charAt(i)).equals("M")) {
+            switch (value.charAt(i)) {
+
+                case 'M':
+                    sum += 1000;
+                    continue;
+
+                case 'D':
+                    sum += 500;
+                    continue;
+
+                case 'C':
+                    sum += 100;
+                    continue;
+
+                case 'L':
+                    sum += 50;
+                    continue;
+
+                case 'X':
+                    sum += 10;
+                    continue;
+
+                case 'V':
+                    sum += 5;
+                    continue;
+
+                case 'I':
+                    sum += 1;
+                    continue;
+
+                case 'm':
+                    sum += 900;
+                    i += 1;
+                    continue;
+
+                case 'd':
+                    sum += 400;
+                    i += 1;
+                    continue;
+
+                case 'c':
+                    sum+= 90;
+                    i += 1;
+                    continue;
+
+                case 'l':
+                    sum += 40;
+                    i += 1;
+                    continue;
+
+                case 'x':
+                    sum += 9;
+                    i +=1;
+                    continue;
+
+                case 'v':
+                    sum += 4;
+                    i +=1;
+                    continue;
             }
         }
 
-        return sum; //What do you think?
+    return sum; //What do you think?
 
-    }
+}
 
     /**
      * Returns the value of this object as an Elbonian Numeral
@@ -140,107 +178,122 @@ public class ElbonianArabicConverter {
      * @throws ValueOutOfBoundsException if the number is too small or too large
      *                                   to be represented using Roman numerals
      */
-    public String toElbonian() throws ValueOutOfBoundsException {
+    public String toElbonian() throws ValueOutOfBoundsException, MalformedNumberException {
 
-        if (Integer.parseInt(value) > 4887) {
-            throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
-                    "They are a simple people with few resources.");
-        }
+        //It checks if everything in the string is a number.
 
-        if (Integer.parseInt(value) < 1) {
-            throw new ValueOutOfBoundsException("This number is too small to be comprehended by the Elbonians. \n" +
-                    "They are a simple people with few resources.");
-        }
 
         if (!legal.eLegal(this.value)) {
-            throw new ValueOutOfBoundsException("This number is too large to be comprehended by the Elbonians. \n" +
-                    "They are a simple people with few resources.");
+
+            if (value.matches("[0-9]+") && value.length() > 0) {
+                throw new ValueOutOfBoundsException("This is not valid enough to be comprehended by the Elbonians. \n" +
+                        "They are a simple people with few resources.");
+            } else {
+                throw new MalformedNumberException("This is a Malformed Number");
+            }
         }
 
-        int remainder = Integer.parseInt(value);
 
         String Elbonian = "";
 
 
-        while (remainder > 0) {
-            if (remainder >= 1000 && Mflag < 3) {
-                remainder -= 1000;
-                Elbonian = Elbonian + "M";
-                Mflag += 1;
-                continue;
+        if (value.matches("[0-9]+") && value.length() > 0) {
+
+            int remainder = Integer.parseInt(value);
+
+            if (remainder > 4887) {
+                throw new ValueOutOfBoundsException("This number is too high to be comprehended by the Elbonians. \n" +
+                        "They are a simple people with few resources.");
             }
-            if (remainder >= 900 && mflag < 1) {
-                remainder -= 900;
-                Elbonian = Elbonian + "mM";
-                mflag += 1;
-                continue;
-            }
-            if (remainder >= 500 && Dflag < 1) {
-                remainder -= 500;
-                Elbonian = Elbonian + "D";
-                Dflag += 1;
-                continue;
-            }
-            if (remainder >= 400 && Dflag < 1) {
-                remainder -= 400;
-                Elbonian = Elbonian + "dD";
-                continue;
-            }
-            if (remainder >= 100 && Cflag < 3) {
-                remainder -= 100;
-                Elbonian = Elbonian + "C";
-                Cflag += 1;
-                continue;
-            }
-            if (remainder >= 90 && cflag < 1) {
-                remainder -= 90;
-                Elbonian = Elbonian + "cC";
-                cflag += 1;
-                continue;
-            }
-            if (remainder >= 50 & Lflag < 1) {
-                remainder -= 50;
-                Elbonian = Elbonian + "L";
-                Lflag += 1;
-                continue;
-            }
-            if (remainder >= 40 & Lflag < 1) {
-                remainder -= 40;
-                Elbonian = Elbonian + "lL";
-                continue;
-            }
-            if (remainder >= 10 && Xflag < 3) {
-                remainder -= 10;
-                Elbonian = Elbonian + "X";
-                Xflag += 1;
-                continue;
-            }
-            if (remainder >= 9 && xflag < 1) {
-                remainder -= 9;
-                Elbonian = Elbonian + "xX";
-                continue;
-            }
-            if (remainder >= 5 && Vflag < 1) {
-                remainder -= 5;
-                Elbonian = Elbonian + "V";
-                Vflag += 1;
-                continue;
-            }
-            if (remainder >= 4 & Vflag < 1) {
-                remainder -= 4;
-                Elbonian = Elbonian + "vV";
-                continue;
-            }
-            if (remainder >= 1) {
-                remainder -= 1;
-                Elbonian = Elbonian + "I";
-                continue;
+
+            if (remainder < 1) {
+                throw new ValueOutOfBoundsException("This number is too low to be comprehended by the Elbonians. \n" +
+                        "They are a simple people with few resources.");
             }
 
 
+            while (remainder > 0) {
+                if (remainder >= 1000 && Mflag < 3) {
+                    remainder -= 1000;
+                    Elbonian = Elbonian + "M";
+                    Mflag += 1;
+                    continue;
+                }
+                if (remainder >= 900 && mflag < 1) {
+                    remainder -= 900;
+                    Elbonian = Elbonian + "mM";
+                    mflag += 1;
+                    continue;
+                }
+                if (remainder >= 500 && Dflag < 1) {
+                    remainder -= 500;
+                    Elbonian = Elbonian + "D";
+                    Dflag += 1;
+                    continue;
+                }
+                if (remainder >= 400 && Dflag < 1) {
+                    remainder -= 400;
+                    Elbonian = Elbonian + "dD";
+                    continue;
+                }
+                if (remainder >= 100 && Cflag < 3) {
+                    remainder -= 100;
+                    Elbonian = Elbonian + "C";
+                    Cflag += 1;
+                    continue;
+                }
+                if (remainder >= 90 && cflag < 1) {
+                    remainder -= 90;
+                    Elbonian = Elbonian + "cC";
+                    cflag += 1;
+                    continue;
+                }
+                if (remainder >= 50 & Lflag < 1) {
+                    remainder -= 50;
+                    Elbonian = Elbonian + "L";
+                    Lflag += 1;
+                    continue;
+                }
+                if (remainder >= 40 & Lflag < 1) {
+                    remainder -= 40;
+                    Elbonian = Elbonian + "lL";
+                    continue;
+                }
+                if (remainder >= 10 && Xflag < 3) {
+                    remainder -= 10;
+                    Elbonian = Elbonian + "X";
+                    Xflag += 1;
+                    continue;
+                }
+                if (remainder >= 9 && xflag < 1) {
+                    remainder -= 9;
+                    Elbonian = Elbonian + "xX";
+                    continue;
+                }
+                if (remainder >= 5 && Vflag < 1) {
+                    remainder -= 5;
+                    Elbonian = Elbonian + "V";
+                    Vflag += 1;
+                    continue;
+                }
+                if (remainder >= 4 & Vflag < 1) {
+                    remainder -= 4;
+                    Elbonian = Elbonian + "vV";
+                    continue;
+                }
+                if (remainder >= 1) {
+                    remainder -= 1;
+                    Elbonian = Elbonian + "I";
+                    continue;
+                }
+
+
+            }
+
+            return Elbonian;
         }
 
-        return Elbonian;
-
+        return value;
     }
+
 }

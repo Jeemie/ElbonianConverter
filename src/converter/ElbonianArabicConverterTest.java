@@ -324,6 +324,12 @@ public class ElbonianArabicConverterTest {
 
     }
 
+    @Test
+    public void arabicToArabic() throws Exception {
+
+        Assert.assertEquals(numClass.toArabic(), 4887);
+
+    }
 
 /**
      *END TESTELBONIAN
@@ -415,6 +421,12 @@ public class ElbonianArabicConverterTest {
         Assert.assertEquals(numClass.toElbonian(), "MMMmMDCCCcCLXXXxXVIII" );
 
 
+    }
+
+    @Test
+    public void elbonianToElbonian() throws Exception{
+
+        Assert.assertEquals(maxclass.toElbonian(), "MMMDCCCLXXXVIII");
     }
 
     /**

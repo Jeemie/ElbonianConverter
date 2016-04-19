@@ -125,12 +125,13 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
+                        case 'M':
+                            return false;
+
+                        case 'D':
+                            return false;
                     }
                 }
 
@@ -157,16 +158,16 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
+                        case 'D':
+                            return false;
+
+                        case 'C':
+                            return false;
                     }
                 }
 
@@ -193,20 +194,19 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
-                    }
+                        case 'D':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("L")) {
-                        return false;
+                        case 'C':
+                            return false;
+
+                        case 'L':
+                            return false;
                     }
                 }
 
@@ -233,24 +233,22 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
-                    }
+                        case 'D':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("L")) {
-                        return false;
-                    }
+                        case 'C':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("X")) {
-                        return false;
+                        case 'L':
+                            return false;
+
+                        case 'X':
+                            return false;
                     }
                 }
 
@@ -275,28 +273,25 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
-                    }
+                        case 'D':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("L")) {
-                        return false;
-                    }
+                        case 'C':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("X")) {
-                        return false;
-                    }
+                        case 'L':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("V")) {
-                        return false;
+                        case 'X':
+                            return false;
+
+                        case 'V':
+                            return false;
                     }
                 }
 
@@ -358,7 +353,7 @@ public class Legality {
                     return false;
                 }
 
-                if(mflag == 1){
+                if (mflag == 1) {
                     return false;
                 }
 
@@ -406,12 +401,13 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
+                        case 'M':
+                            return false;
+
+                        case 'D':
+                            return false;
                     }
 
                 }
@@ -434,7 +430,7 @@ public class Legality {
                     return false;
                 }
 
-                if(cflag == 1){
+                if (cflag == 1) {
                     return false;
                 }
                 lflag += 1;
@@ -446,16 +442,17 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
+                        case 'D':
+                            return false;
+
+                        case 'C':
+                            return false;
+
                     }
 
                 }
@@ -488,22 +485,20 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
-                    }
+                        case 'D':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("L")) {
-                        return false;
-                    }
+                        case 'C':
+                            return false;
 
+                        case 'L':
+                            return false;
+                    }
                 }
 
                 if (i == astring.length() - 1) {
@@ -524,7 +519,7 @@ public class Legality {
                     return false;
                 }
 
-                if(xflag == 1){
+                if (xflag == 1) {
                     return false;
                 }
 
@@ -537,24 +532,23 @@ public class Legality {
                     /**
                      * Check BLOCK2
                      */
-                    if (Character.toString(astring.charAt(j)).equals("M")) {
-                        return false;
-                    }
 
-                    if (Character.toString(astring.charAt(j)).equals("D")) {
-                        return false;
-                    }
+                    switch (astring.charAt(j)) {
 
-                    if (Character.toString(astring.charAt(j)).equals("C")) {
-                        return false;
-                    }
+                        case 'M':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("L")) {
-                        return false;
-                    }
+                        case 'D':
+                            return false;
 
-                    if (Character.toString(astring.charAt(j)).equals("X")) {
-                        return false;
+                        case 'C':
+                            return false;
+
+                        case 'L':
+                            return false;
+
+                        case 'X':
+                            return false;
                     }
 
                 }
