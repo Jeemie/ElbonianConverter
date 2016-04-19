@@ -1,7 +1,7 @@
 package converter;
 
 /**
- * Created by Jimmy on 4/12/2016.
+ * Created by Jimmy & Rebecca on 4/12/2016.
  */
 public class Legality {
 
@@ -36,7 +36,7 @@ public class Legality {
      */
     public boolean eLegal(String astring) {
 
-
+        //Strips both beginning and ending whitespace.
         astring = astring.replaceAll("^\\s+", "");//Strips off the white spaces at the beginning of the string
         astring = astring.replaceAll("\\s+$", "");//Strips off the white spaces at the end of the string
 
@@ -56,253 +56,272 @@ public class Legality {
              * This whole bunch is checking to make sure the letters are legitimate Elbonian Numbers
              *
              */
-            if (Character.toString(astring.charAt(i)).equals("M") && Mflag < 3) {//Makes sure there isn't 4 "M" in a row.
+            //if a Numeral is M
+            //Checks how many "M" in a row.
+            if (Character.toString(astring.charAt(i)).equals("M") && Mflag < 3) {
 
-                //System.out.println("I reached M"); //Debug
-
-
-                if (mflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                //An uppercase M should not occur after the mM pair of characters
+                if (mflag == 1) {
                     return false;
                 }
-                Mflag += 1; //Increments flag by 1
+                //Increments flag by 1
+                Mflag += 1;
 
-
-                if (i == astring.length() - 1) { //If last value in the string, ends.
+                //When at the end of the string
+                //So far the string has not returned false so it must be valid
+                if (i == astring.length() - 1) {
                     return true;
                 }
 
-                //No spaces allowed in between letters.
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
-                continue; //Goes back to the start of the loop
+                //Goes back to the start of the loop
+                continue;
             }
 
-            //Same as M. Look at that . Geez. I don't have time to write all these comments.
+            /**
+             * if a Numeral is D
+             * Checks how many "D" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("D") && Dflag < 1) {
 
-                if (dflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                // An uppercase D should not occur after the dD pair of characters which sets dflag=1
+                if (dflag == 1) {
                     return false;
                 }
-                Dflag += 1;
-                //System.out.println("I reached D");
 
+                //Increments Dflag by 1
+                Dflag += 1;
+
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
+                if (i == astring.length() - 1) {
+                    return true;
+                }
 
                 /**
-                 * START BLOCK2
-                 * Starting from here, it checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
                  */
                 for (int j = i; j < astring.length(); j++) {
-                    /**
-                     * Example for Block 2
-                     */
                     if (Character.toString(astring.charAt(j)).equals("M")) {
                         return false;
                     }
                 }
 
-
-                if (i == astring.length() - 1) {
-                    return true;
-                }
-
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             * if a Numeral is C
+             * Checks how many "C" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("C") && Cflag < 3) {
 
-                if (cflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                //An uppercase C should not occur after the cC pair of characters
+                if (cflag == 1) {
                     return false;
                 }
+
+                //Increments Cflag by 1
                 Cflag += 1;
-                //System.out.println("I reached C"); debug
 
-                for (int j = i; j < astring.length(); j++) {
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-                    }
-                }
-
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
                 }
 
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             *  if a Numeral is L
+             *  Checks how many "L" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("L") && Lflag < 1) {
 
-                if (lflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                //An uppercase L should not occur after the lL pair of characters
+                if (lflag == 1) {
                     return false;
                 }
+
+                //Increments Lflag by 1
                 Lflag += 1;
-                // System.out.println("I reached L"); debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-                    }
-                }
-
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
                 }
-
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             *  if a Numeral is X
+             *  Checks how many "X" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("X") && Xflag < 3) {
 
-                if (xflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                //An uppercase X should not occur after the xX pair of characters
+                if (xflag == 1) {
                     return false;
                 }
+
+                //Increments Lflag by 1
                 Xflag += 1;
-                // System.out.println("I reached X"); debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                        case 'L':
-                            return false;
-                    }
-                }
-
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
                 }
 
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             *  if a Numeral is V
+             *  Checks how many "V" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("V") && Vflag < 1) {
 
-                if (vflag == 1) { //An uppercase letter should not be 2 past the lowercase. This flag set in "m" statements.
+                //An uppercase V should not occur after the vV pair of characters
+                if (vflag == 1) {
                     return false;
                 }
+                //Increments Vflag by 1
                 Vflag += 1;
-                //    System.out.println("I reached V"); debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                        case 'L':
-                            return false;
-
-                        case 'X':
-                            return false;
-                    }
-                }
-
-
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
+
+                    if (Character.toString(astring.charAt(j)).equals("X")) {
+                        return false;
+                    }
                 }
 
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             *  if a Numeral is I
+             *  Checks how many "I" in a row.
+             */
             if (Character.toString(astring.charAt(i)).equals("I") && Iflag < 3) {
 
+                //Increments Iflag by 1
                 Iflag += 1;
-                //System.out.println("I reached I"); debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                        case 'L':
-                            return false;
-
-                        case 'X':
-                            return false;
-
-                        case 'V':
-                            return false;
-                    }
-                }
-
+                //At the end of the string
+                //So far the string has not returned false so it must be valid
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("X")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("V")) {
+                        return false;
+                    }
                 }
 
+                //Goes back to the start of the loop
                 continue;
             }
 
@@ -312,9 +331,10 @@ public class Legality {
 
 
             /**
-             * START BLOCK 3
-             * These deal with when a lowercase letter is found
+             * LOWER CASE
              *
+             * for Numeral m
+             * Ensures that only 1 lowercase m is called within a string
              */
             if (Character.toString(astring.charAt(i)).equals("m") && mflag < 1) {//Ensures that only 1 lowercase m is called
 
@@ -322,45 +342,155 @@ public class Legality {
                 if (i == astring.length() - 1) {
                     return false;
                 }
+
                 //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
                 if (!Character.toString(astring.charAt(i + 1)).equals("M")) {
                     return false;
                 }
 
-
+                //Increment mflag by 1
+                //Since we know the next letter is "M" we just skip it.
                 mflag += 1;
-                i += 1; //Since we know the next letter is "M" we just skip it.
+                i += 1;
 
-                //System.out.println("I reached m"); debug
-
-                if (i == astring.length() - 1) { //if the next letter is last and valid, then it's valid.
+                //if the next letter is last and valid, then it's valid.
+                if (i == astring.length() - 1) {
                     return true;
                 }
 
-                //If the next is a white space, it is NOT valid.
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             * for Numeral d
+             * Ensures that only 1 lowercase d is called within a string
+             */
             if (Character.toString(astring.charAt(i)).equals("d") && dflag < 1) {
 
+                //If it's the only letter, it's not valid
                 if (i == astring.length() - 1) {
                     return false;
                 }
+
+                //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
                 if (!Character.toString(astring.charAt(i + 1)).equals("D")) {
                     return false;
                 }
 
-                if (mflag == 1) {
+                // mMdD is not a valid representation
+                // 900 + 400 = 1300 -> MCCC
+                if (mflag != 0 ){
                     return false;
                 }
 
+                //Increment dflag by 1
+                //Since we know the next letter is "D" we just skip it.
                 dflag += 1;
                 i += 1;
-                // System.out.println("I reached d"); debug
 
+                //if the next letter is last and valid, then it's valid.
+                if (i == astring.length() - 1) {
+                    return true;
+                }
+
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                }
+
+                //Goes back to the start of the loop
+                continue;
+            }
+
+            /**
+             * for Numeral c
+             * Ensures that only 1 lowercase c is called within a string
+             */
+            if (Character.toString(astring.charAt(i)).equals("c") && cflag < 1) {
+
+                //If it's the only letter, it's not valid
+                if (i == astring.length() - 1) {
+                    return false;
+                }
+
+                //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
+                if (!Character.toString(astring.charAt(i + 1)).equals("C")) {
+                    return false;
+                }
+
+                //Increment dflag by 1
+                //Since we know the next letter is "D" we just skip it.
+                cflag += 1;
+                i += 1;
+
+                //if the next letter is last and valid, then it's valid.
+                if (i == astring.length() - 1) {
+                    return true;
+                }
+
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                }
+
+                //Goes back to the start of the loop
+                continue;
+            }
+
+            /**
+             * for Numeral l
+             * Ensures that only 1 lowercase l is called within a string
+             */
+            if (Character.toString(astring.charAt(i)).equals("l") && lflag < 1) {
+
+                //If it's the only letter, it's not valid
+                if (i == astring.length() - 1) {
+                    return false;
+                }
+
+                //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
+                if (!Character.toString(astring.charAt(i + 1)).equals("L")) {
+                    return false;
+                }
+
+                // cClL is not a valid representation
+                // 90 + 40 = 130 -> CXXX
+                if (cflag != 0 ){
+                    return false;
+                }
+
+                //Increment lflag by 1
+                //Since we know the next letter is "L" we just skip it.
+                lflag += 1;
+                i += 1;
+
+                //if the next letter is last and valid, then it's valid.
+                if (i == astring.length() - 1) {
+                    return true;
+                }
+
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
                 for (int j = i; j < astring.length(); j++) {
 
                     /**
@@ -369,217 +499,140 @@ public class Legality {
                     if (Character.toString(astring.charAt(j)).equals("M")) {
                         return false;
                     }
-                }
 
-                if (i == astring.length() - 1) {
-                    return true;
-                }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
-
-                continue;
-
-            }
-            if (Character.toString(astring.charAt(i)).equals("c") && cflag < 1) {
-
-                if (i == astring.length() - 1) {
-                    return false;
-                }
-                if (!Character.toString(astring.charAt(i + 1)).equals("C")) {
-                    return false;
-                }
-
-                cflag += 1;
-                i += 1;
-                // System.out.println("I reached c"); debug
-
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
                     }
 
                 }
 
-                if (i == astring.length() - 1) {
-                    return true;
-                }
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
+                //Goes back to the start of the loop
                 continue;
             }
-            if (Character.toString(astring.charAt(i)).equals("l") && lflag < 1) {
 
-                if (i == astring.length() - 1) {
-                    return false;
-                }
-                if (!Character.toString(astring.charAt(i + 1)).equals("L")) {
-                    return false;
-                }
-
-                if (cflag == 1) {
-                    return false;
-                }
-                lflag += 1;
-                i += 1;
-                //System.out.println("I reached l");debug
-
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                    }
-
-                }
-
-                if (i == astring.length() - 1) {
-                    return true;
-                }
-
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
-                }
-
-                continue;
-            }
+            /**
+             * for Numeral x
+             * Ensures that only 1 lowercase x is called within a string
+             */
             if (Character.toString(astring.charAt(i)).equals("x") && xflag < 1) {
 
+                //If it's the only letter, it's not valid
                 if (i == astring.length() - 1) {
                     return false;
                 }
+
+                //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
                 if (!Character.toString(astring.charAt(i + 1)).equals("X")) {
                     return false;
                 }
 
+                //Increment xflag by 1
+                //Since we know the next letter is "X" we just skip it.
                 xflag += 1;
                 i += 1;
-                //System.out.println("I reached x");debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                        case 'L':
-                            return false;
-                    }
-                }
-
+                //if the next letter is last and valid, then it's valid.
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
                 }
+
+                //Goes back to the start of the loop
                 continue;
             }
+
+            /**
+             * for Numeral v
+             * Ensures that only 1 lowercase v is called within a string
+             */
             if (Character.toString(astring.charAt(i)).equals("v") && vflag < 1) {
 
+                //If it's the only letter, it's not valid
                 if (i == astring.length() - 1) {
                     return false;
                 }
+
+                //If the next letter is not the uppercase letter, it is not valid
+                //must check first that there is a next letter
                 if (!Character.toString(astring.charAt(i + 1)).equals("V")) {
                     return false;
                 }
 
-                if (xflag == 1) {
+                // xXvV is not a valid representation
+                // 9 + 4 = 13 -> XIII
+                if (xflag != 0 ){
                     return false;
                 }
 
+                //Increment vflag by 1
+                //Since we know the next letter is "V" we just skip it.
                 vflag += 1;
                 i += 1;
-                // System.out.println("I reached v");debug
 
-                for (int j = i; j < astring.length(); j++) {
-
-                    /**
-                     * Check BLOCK2
-                     */
-
-                    switch (astring.charAt(j)) {
-
-                        case 'M':
-                            return false;
-
-                        case 'D':
-                            return false;
-
-                        case 'C':
-                            return false;
-
-                        case 'L':
-                            return false;
-
-                        case 'X':
-                            return false;
-                    }
-
-                }
-
+                //if the next letter is last and valid, then it's valid.
                 if (i == astring.length() - 1) {
                     return true;
                 }
 
-                if (Character.toString(astring.charAt(i + 1)).equals(" ")) {
-                    return false;
+                /**
+                 * Checks to make sure that no "bigger" numbers follow the "smaller" numbers.
+                 * Should happen once we know it is not the last Numeral in the string
+                 */
+                for (int j = i; j < astring.length(); j++) {
+                    if (Character.toString(astring.charAt(j)).equals("M")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("D")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("C")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("L")) {
+                        return false;
+                    }
+                    if (Character.toString(astring.charAt(j)).equals("X")) {
+                        return false;
+                    }
                 }
-                continue;
+
             }
-            /**
-             * END BLOCK3
-             */
 
             /**
              * This returns false when it hits none of these, meaning it is NOT valid
+             * Also does whitespace.
              */
             else {
                 return false;
             }
 
-            /**
-             * END BLOCK1
-             */
-
         }
-
-
+        /**
+         * This returns false when it hits none of these, meaning it is NOT valid
+         */
         return false;
     }
 

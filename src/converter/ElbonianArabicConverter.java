@@ -1,7 +1,5 @@
 package converter;
 
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
-
 /**
  * This class implements a converter that takes a string that represents a
  * number in either Elbonian or Arabic numeral form and offers methods that will
@@ -51,16 +49,6 @@ public class ElbonianArabicConverter {
     }
 
 
-
-/*    public void main(String[] args) throws MalformedNumberException {
-        System.out.println("Hello World!"); // Display the string.
-        String ET1 = "M";
-        int ET1I = ET1.toArabic();
-
-        System.out.println(ET1I);
-
-    }*/
-
     /**
      * Returns the value of this object as an Arabic number.
      *
@@ -97,8 +85,7 @@ public class ElbonianArabicConverter {
 
         }
 
-        int sum = 0;//Isn't this obvious?
-
+        int sum = 0;
 
         /**
          * Adds the values depending on what the letters are.
@@ -163,7 +150,6 @@ public class ElbonianArabicConverter {
                 case 'v':
                     sum += 4;
                     i +=1;
-                    continue;
             }
         }
 
@@ -284,7 +270,6 @@ public class ElbonianArabicConverter {
                 if (remainder >= 1) {
                     remainder -= 1;
                     Elbonian = Elbonian + "I";
-                    continue;
                 }
 
 
